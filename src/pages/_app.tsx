@@ -1,13 +1,13 @@
+import { Provider } from "next-auth/client";
 import { AppProps } from "next/app";
 import "tailwindcss/tailwind.css";
 import "../../styles/globals.css";
-import { AppProvider } from "../contexts";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AppProvider>
+    <Provider session={pageProps.session}>
       <Component {...pageProps} />
-    </AppProvider>
+    </Provider>
   );
 }
 

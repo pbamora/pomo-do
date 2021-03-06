@@ -1,39 +1,25 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { useContext } from "react";
+import nc from "next-connect";
 import connect from "../../../utils/database";
-import { AuthContext } from "../../contexts/AuthContext";
+import upload from "../../../utils/upload";
 
 interface ApiResponseType {
   message: string;
 }
 
-export default async (
-  request: NextApiRequest,
-  response: NextApiResponse<ApiResponseType>
-): Promise<void> => {
-  if (request.method === "POST") {
-    const { name, level, currentExperience, challangesHistory } = request.body;
-
-    const { db } = await connect();
-
-    const res = await db.collection("users").insertOne({
+const handler = nc()
+  .use(upload.single("file"))
+  .post((req: NextApiRequest, res: NextApiResponse) => {
+    const {
+      name,
+      email,
+      avatar,
       level,
       currentExperience,
-      challangesHistory,
-    });
+      completedChallanges,
+    } = req.body;
 
-    response.status(200).json(res.ops[0]);
-  } else if (request.method === "GET") {
-    const { id } = request.body;
+    
+  });
 
-    const { db } = await connect();
-
-    const res = await db.collection("users").insertOne({});
-
-    response.status(200).json(res.ops[0]);
-  } else {
-    response.status(400).json({
-      message: `Does not possible create data with method ${request.method}`,
-    });
-  }
-};
+export default handler;

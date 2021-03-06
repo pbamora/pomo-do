@@ -4,8 +4,8 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
+        <title>Pomo-do</title>
         <Head>
-          <title>Pomo-do</title>
           <link rel="shortcut icon" href="favicon.ico" type="./favicon.ico" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link

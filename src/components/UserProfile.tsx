@@ -1,10 +1,10 @@
+import { useSession , csrfToken} from "next-auth/client";
 import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
 import { ChallangesContext } from "../contexts/ChallangesContext";
 
 export default function UserProfile() {
-  const { session } = useContext(AuthContext);
   const { level } = useContext(ChallangesContext);
+  const [session] = useSession();
 
   return (
     <>
