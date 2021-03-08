@@ -13,6 +13,10 @@ const client = new MongoClient(process.env.MONGODB_URL, {
 export default async function connect(): Promise<ConnectType> {
   if (!client.isConnected()) await client.connect();
 
-  const db = client.db("pomodo");
+  const db =
+    process.env.BASE_URL === "http://localhost:3000"
+      ? client.db("pomodo-dev")
+      : client.db("pomodo-dev");
+
   return { client, db };
 }

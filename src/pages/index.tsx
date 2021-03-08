@@ -4,29 +4,57 @@ import UserProfile from "../components/UserProfile";
 import CompletedChallenges from "../components/CompletedChallanges";
 import CountDown from "../components/CountDown";
 import Challenges from "../components/Challanges";
-import Login from "./login";
+import ChallangesHistory from "../components/ChallangesHistory";
+import { ClipList, Close, TurnRight } from "../../public/icons";
 import { ChallengesProvider } from "../contexts/ChallangesContext";
 import { CountDownProvider } from "../contexts/CounDownContext";
-import { useSession } from "next-auth/client";
+import { UserProvider } from "../contexts/UserContext";
+import { useRouter } from "next/dist/client/router";
+import axios from "axios";
+import { useState } from "react";
 
-export interface ChallangesProps {
-  level: number;
-  currentExperience: number;
-  numChallangesCompleted: number;
+interface Challange {
+  id: string;
+  type: string;
+  description: string;
+  amount: number;
+  date: string;
 }
 
-export default function Home(stars, props: ChallangesProps) {
-  const [session, loading] = useSession();
+export interface ChallangesData {
+  _id: string;
+  login: string;
+  id: number;
+  name: string;
+  avatar_url: string;
+  location: string;
+  level: number;
+  currentExperience: number;
+  challangesHistory: Array<Challange>;
+}
 
-  console.log(stars)
+interface ChallangeProps {
+  response: ChallangesData;
+}
+
+export default function Home(props: ChallangeProps) {
+  const [showSideBar, setShowSideBar] = useState(false);
+  const router = useRouter();
 
   return (
     <>
-      {session ? (
+      <UserProvider
+        id={props.response.id}
+        login={props.response.login}
+        location={props.response.location}
+        avatar_url={props.response.avatar_url}
+        name={props.response.name}
+        challangesHistory={props.response.challangesHistory}
+      >
         <ChallengesProvider
-          level={props.level}
-          currentExperience={props.currentExperience}
-          numChallangesCompleted={props.numChallangesCompleted}
+          level={props.response.level}
+          currentExperience={props.response.currentExperience}
+          challangesHistory={props.response.challangesHistory}
         >
           <CountDownProvider>
             <div className="flex">
@@ -47,24 +75,37 @@ export default function Home(stars, props: ChallangesProps) {
                   </div>
                 </section>
               </div>
+              <button
+                className={`fixed z-50 bottom-5 focus:outline-none ${
+                  showSideBar ? "right-96 top-32" : "right-20"
+                }`}
+                type="button"
+                onClick={() => setShowSideBar(!showSideBar)}
+              >
+                {!showSideBar ? (
+                  <ClipList width="32" fill="#fff" />
+                ) : (
+                  <TurnRight width="32" fill="#fff" />
+                )}
+              </button>
+              {showSideBar && <ChallangesHistory />}
             </div>
           </CountDownProvider>
         </ChallengesProvider>
-      ) : (
-        <Login />
-      )}
+      </UserProvider>
     </>
   );
 }
 
 export const getServerSideProps = async (ctx) => {
-  const { level, currentExperience, numChallangesCompleted } = ctx.req.cookies;
+  const { id } = ctx.req.cookies;
+
+  const response = await axios.get(`${process.env.BASE_URL}/api/user/${id}`);
 
   return {
     props: {
-      level: Number(level),
-      currentExperience: Number(currentExperience),
-      completedChallanges: Number(numChallangesCompleted),
+      id: id,
+      response: response.data,
     },
   };
 };

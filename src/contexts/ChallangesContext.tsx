@@ -1,16 +1,22 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import challanges from "../../challanges.json";
-import Cookies from "js-cookie";
+import axios from "axios";
+import { v4 } from "uuid";
+import { UserContext } from "./UserContext";
+import Modal from "../components/Modal";
+import { Close } from "../../public/icons";
 
 interface ChallangesProviderProps {
   children: React.ReactNode;
   level: number;
   currentExperience: number;
-  numChallangesCompleted: number;
+  challangesHistory: Array<ChallengeActiveProps>;
 }
 
 interface ChallengeActiveProps {
-  type: "body" | "eye";
+  id: string;
+  date: string;
+  type: string;
   description: string;
   amount: number;
 }
@@ -19,7 +25,6 @@ interface ChallangesProviderData {
   activeChallange: ChallengeActiveProps;
   challangesHistory: Array<ChallengeActiveProps>;
   completed: boolean;
-  numChallangesCompleted: number;
   currentExperience: number;
   experienceToNextLevel: number;
   level: number;
@@ -40,24 +45,29 @@ export function ChallengesProvider({
   );
   const [challangesHistory, setChallangesHistory] = useState<
     Array<ChallengeActiveProps>
-  >([] as any);
-  const [numChallangesCompleted, setNumChallangesCompleted] = useState(
-    rest.numChallangesCompleted || 0
-  );
+  >(rest.challangesHistory || []);
+
+  const [modal, setModal] = useState(false);
+
   const [completed, setCompleted] = useState(false);
+
+  const { id } = useContext(UserContext);
 
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
   useEffect(() => {
-    const numChallanges = challangesHistory.length;
+    const config = { headers: { "Content-Type": "application/json" } };
 
-    setNumChallangesCompleted(numChallanges);
-  }, [challangesHistory]);
-
-  useEffect(() => {
-    Cookies.set("level", String(level));
-    Cookies.set("currentExperience", String(currentExperience));
-    Cookies.set("completedChallanges", String(numChallangesCompleted));
+    axios.put(
+      "/api/user",
+      {
+        id,
+        level,
+        currentExperience,
+        challangesHistory,
+      },
+      config
+    );
   }, [level, currentExperience, challangesHistory]);
 
   const startNewChallange = () => {
@@ -69,12 +79,11 @@ export function ChallengesProvider({
 
   function levelUp() {
     setLevel(level + 1);
+
+    setModal(true);
   }
 
   const completedChallange = () => {
-    if (!activeChallange) {
-      return;
-    }
 
     const { amount } = activeChallange;
 
@@ -88,6 +97,18 @@ export function ChallengesProvider({
     setCurrentExperience(finalExperience);
 
     setCompleted(true);
+
+    const data = new Date();
+
+    const dia = data.getDate().toString().padStart(2, "0");
+    const mes = (data.getMonth() + 1).toString().padStart(2, "0");
+    const ano = data.getFullYear();
+    const hour = data.getHours().toString();
+    const minuts = data.getMinutes().toString();
+
+    activeChallange.id = v4();
+    activeChallange.date = `${dia}/${mes}/${ano} - ${hour}:${minuts}`;
+
     setChallangesHistory((oldArray) => [...oldArray, activeChallange]);
 
     setActiveChallange(null);
@@ -101,13 +122,25 @@ export function ChallengesProvider({
         challangesHistory,
         completedChallange,
         completed,
-        numChallangesCompleted,
         currentExperience,
         experienceToNextLevel,
         level,
       }}
     >
-      {children}
+      {modal && (
+        <div>
+          <button
+            className="absolute z-50 top-2/3 right-1/2"
+            onClick={() => setModal(false)}
+          >
+            <Close width="30" fill="#fff" />
+          </button>
+          <Modal />
+        </div>
+      )}
+      <div style={{ filter: `${modal ? "blur(5px)" : "none"}` }}>
+        {children}
+      </div>
     </ChallangesContext.Provider>
   );
 }

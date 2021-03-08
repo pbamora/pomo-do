@@ -17,24 +17,24 @@ export default function CountDown() {
   return (
     <>
       <div className="flex items-center max-w-xs mt-10 ">
-        <div className=" flex w-full h-28 rounded-1xl bg-white items-center shadow-2xl">
-          <h1 className=" flex w-full text-7xl font-extrabold text-baseDark justify-center">
+        <div className=" w-full h-28 rounded-1xl bg-gradient-to-br from-baseDark to-base flex items-center shadow-2xl">
+          <h1 className=" flex w-full text-7xl font-extrabold text-white justify-center">
             {minuteLeft}
           </h1>
-          <span className=" flex h-full w-0.5 bg-base "></span>
-          <h1 className=" flex w-full text-7xl font-extrabold text-baseDark justify-center">
+          <span className=" flex h-full w-0.5 bg-white "></span>
+          <h1 className=" flex w-full text-7xl font-extrabold text-white justify-center">
             {minuteRight}
           </h1>
         </div>
 
         <span className="font-extrabold text-6xl p-2 text-white ">:</span>
 
-        <div className=" flex w-full h-28 rounded-1xl bg-white items-center shadow-2xl ">
-          <h1 className=" flex w-full text-7xl font-extrabold text-baseDark justify-center ">
+        <div className=" w-full h-28 rounded-1xl bg-gradient-to-br from-baseDark to-base flex items-center shadow-2xl ">
+          <h1 className=" flex w-full text-7xl font-extrabold text-white justify-center ">
             {secondLeft}
           </h1>
-          <span className=" flex h-full w-0.5 bg-base "></span>
-          <h1 className=" flex w-full text-7xl font-extrabold text-baseDark justify-center">
+          <span className=" flex h-full w-0.5 bg-white "></span>
+          <h1 className=" flex w-full text-7xl font-extrabold text-white justify-center">
             {secondRight}
           </h1>
         </div>

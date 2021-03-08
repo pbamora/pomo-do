@@ -1,6 +1,5 @@
 import {
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useState,
@@ -30,12 +29,7 @@ export function CountDownProvider({ children }: CountDownProviderProps) {
   const [isCounting, setIsCounting] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
-  const {
-    startNewChallange,
-    completedChallange,
-    activeChallange,
-    completed,
-  } = useContext(ChallangesContext);
+  const { startNewChallange } = useContext(ChallangesContext);
 
   const startCountDown = () => {
     setIsCounting(true);
@@ -60,7 +54,6 @@ export function CountDownProvider({ children }: CountDownProviderProps) {
 
       startNewChallange();
     } else if (!isCounting) {
-      
       resetCountDown();
       setHasFinished(false);
     }

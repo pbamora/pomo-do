@@ -2,6 +2,7 @@ module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    darkMode: "media",
     screens: {
       sm: "480px",
       md: "768px",
@@ -22,6 +23,9 @@ module.exports = {
       blue: "#0C85E0",
       blueDark: "#2073B1",
     },
+    blur: {
+      "10xl": "9000px",
+    },
     fontFamily: {
       sans: ["Nunito", "sans-serif"],
       serif: ["Merriweather", "serif"],
@@ -33,6 +37,7 @@ module.exports = {
       },
       backgroundImage: {
         "background-logo": "url('/icons/background-logo.svg')",
+        "background-union": "url('/icons/union.svg')",
       },
     },
     borderRadius: {
@@ -45,8 +50,11 @@ module.exports = {
     },
   },
   variants: {
+    animation: ["responsive", "motion-safe", "motion-reduce"],
     plugins: {
-      tailwindcss: { config: "./tailwindcss-config.js" },
+      tailwindcss: {
+        config: ["./tailwindcss-config.js"],
+      },
     },
   },
   plugins: [],
