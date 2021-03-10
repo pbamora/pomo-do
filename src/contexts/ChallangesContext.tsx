@@ -4,7 +4,6 @@ import axios from "axios";
 import { v4 } from "uuid";
 import { UserContext } from "./UserContext";
 import Modal from "../components/Modal";
-import { Close } from "../../public/icons";
 
 interface ChallangesProviderProps {
   children: React.ReactNode;
@@ -58,6 +57,12 @@ export function ChallengesProvider({
   useEffect(() => {
     const config = { headers: { "Content-Type": "application/json" } };
 
+    if (modal) {
+      setTimeout(() => {
+        setModal(false);
+      }, 3500);
+    }
+
     if (!challangesHistory || !currentExperience) return;
 
     axios.put(
@@ -70,7 +75,7 @@ export function ChallengesProvider({
       },
       config
     );
-  }, [level, currentExperience, challangesHistory]);
+  }, [level, currentExperience, challangesHistory, modal]);
 
   const startNewChallange = () => {
     const randomChallangeIndex = Math.floor(Math.random() * challanges.length);
@@ -130,12 +135,6 @@ export function ChallengesProvider({
     >
       {modal && (
         <div>
-          <button
-            className="absolute z-50 top-2/3 right-1/2"
-            onClick={() => setModal(false)}
-          >
-            <Close width="30" fill="#fff" />
-          </button>
           <Modal />
         </div>
       )}
