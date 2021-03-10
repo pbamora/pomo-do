@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
@@ -17,9 +21,12 @@ button {
   font: 400 1rem "Nunito", sans-serif;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font: 700 1rem "Nunito", sans-serif;
   font-size: xx-large;
+  color: #303656;
 }
 
 button {
@@ -32,5 +39,9 @@ a {
 }
 
 body {
-  background-image: linear-gradient(to right, #284154, #20323f);
+  /* background-image: linear-gradient(to right, #a4dfb9, #c1e0e2, #cfdff8); */
+  background-image: url("../public/gallaxy-2.svg");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: cover;
 }

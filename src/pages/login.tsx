@@ -25,18 +25,21 @@ export default function Login() {
 
       const { login, id, avatar_url, location, name } = response.data;
 
-      const userExists = await axios.get(`api/user/${id}`);
+      const userExists = await axios.get(
+        `${process.env.BASE_URL ? process.env.BASE_URL : ""}api/user/${id}`
+      );
 
       Cookies.set("login", String(login));
       Cookies.set("id", String(id));
       Cookies.set("avatar_url", String(avatar_url));
       Cookies.set("location", String(location));
       Cookies.set("name", String(name));
+      Cookies.set("starter", "true");
 
       const userID = Cookies.get("id");
 
       if (!userExists.data && userID) {
-        await axios.post("/api/user", {
+        await axios.post(`/api/user`, {
           login,
           avatar_url,
           id,
@@ -55,17 +58,17 @@ export default function Login() {
     <>
       <div className=" flex justify-center container max-w-none h-screen mr-auto flex-col bg-background-logo bg-no-repeat">
         <section className="flex p-8 items-center justify-center">
-          <div className="container p-16 flex flex-col max-w-xl max-auto items-center justify-center rounded-1xl bg-base shadow-2xl ">
+          <div className="container p-16 flex flex-col max-w-xl max-auto items-center justify-center border border-white border-opacity-40 bg-white bg-opacity-20 rounded-4xl shadow-2xl ">
             <img className="mb-12" src="./logo.svg" alt="pomodo" width={200} />
-            <h1 className="text-white">Login</h1>
+            <h1 className="text-greenL">Login</h1>
 
             <div className="flex justify-center items-center mt-10">
               <img
-                className="text-white text-center mr-5"
+                className="text-text text-center mr-5"
                 src="./icons/github.svg"
                 alt=""
               />
-              <p className="text-white text-center">
+              <p className="text-greenL text-center">
                 Digite seu username do github <br /> para entrar!
               </p>
             </div>
@@ -75,22 +78,25 @@ export default function Login() {
                 <input
                   type="text"
                   placeholder="Digite seu username"
-                  className="p-5 focus:outline-none text-gray items-center justify-center w-full h-full bg-gradient-to-r from-base to-baseDark "
+                  className="p-5 focus:outline-none placeholder-greenL items-center text-greenL justify-center w-full h-15 rounded-tl-4xl rounded-bl-4xl bg-white bg-opacity-25 "
                   value={userName}
                   onChange={(event) => handleChange(event)}
                 />
                 <button
                   type="button"
                   onClick={login}
-                  className={`flex items-center justify-center h-full p-5 w-20 text-gray ${
-                    !validate ? "bg-baseDark" : "bg-blue"
+                  className={`flex focus:outline-none items-center justify-center h-50 rounded-tr-4xl rounded-br-4xl p-5 w-20 text-white ${
+                    !validate
+                      ? "bg-gradient-to-br from-greenL to-greenR"
+                      : "bg-gradient-to-br from-greenR to-greenL"
                   }`}
                 >
                   {validate ? (
                     <div>
-                      <svg
-                        className=" ml-2 animate-spin rounded-full border-t-4 border-white h-5 w-5 mr-3 bg-blue"
-                        viewBox="0 0 24 24"
+                      <img
+                        className="animate-spin"
+                        src="./icons/play_arrow.svg"
+                        alt=""
                       />
                     </div>
                   ) : (
@@ -99,7 +105,7 @@ export default function Login() {
                 </button>
               </div>
 
-              <p className="text-white text-center mt-10">
+              <p className=" text-greenL text-center mt-10">
                 Um app para quem passa mais de 6h na frente do cumputador 🙂.{" "}
               </p>
             </div>

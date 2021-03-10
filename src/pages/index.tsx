@@ -11,7 +11,7 @@ import { CountDownProvider } from "../contexts/CounDownContext";
 import { UserProvider } from "../contexts/UserContext";
 import { useRouter } from "next/dist/client/router";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Challange {
   id: string;
@@ -41,6 +41,12 @@ export default function Home(props: ChallangeProps) {
   const [showSideBar, setShowSideBar] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    if (props) return;
+
+    router.push("/login");
+  }, []);
+
   return (
     <>
       <UserProvider
@@ -60,7 +66,7 @@ export default function Home(props: ChallangeProps) {
             <div className="flex">
               <SideBar />
 
-              <div className="h-screen w-full m-auto pt-5 bg-base flex flex-col  items-center">
+              <div className="h-screen w-full m-auto pt-5 flex flex-col  items-center">
                 <ExperienceBar />
 
                 <section className="flex w-9/12 max-w-screen-lg m-auto grid-flow-col grid-cols-2 gap-24 items-center ">
@@ -77,7 +83,7 @@ export default function Home(props: ChallangeProps) {
               </div>
               <button
                 className={`fixed z-50 bottom-5 focus:outline-none ${
-                  showSideBar ? "right-96 top-32" : "right-20"
+                  showSideBar ? "right-96 top-0" : "right-20"
                 }`}
                 type="button"
                 onClick={() => setShowSideBar(!showSideBar)}
@@ -100,7 +106,9 @@ export default function Home(props: ChallangeProps) {
 export const getServerSideProps = async (ctx) => {
   const { id } = ctx.req.cookies;
 
-  const response = await axios.get(`${process.env.BASE_URL}/api/user/${id}`);
+  const response = await axios.get(
+    `${process.env.BASE_URL ? process.env.BASE_URL : ""}/api/user/${id}`
+  );
 
   return {
     props: {

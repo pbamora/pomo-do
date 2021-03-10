@@ -1,6 +1,5 @@
 import { useRouter } from "next/dist/client/router";
-import { createContext, useContext, useEffect, useState } from "react";
-import { ChallangesContext } from "./ChallangesContext";
+import { createContext, useState } from "react";
 
 interface SideBarProviderProps {
   children: React.ReactNode;

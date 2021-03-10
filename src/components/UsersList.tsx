@@ -37,12 +37,12 @@ export default function UsersList(props: UsersData) {
               width={65}
             />
           </div>
-          <section className="flex w-9/12 max-w-screen-lg h-20 m-2 shadow-xl ">
-            <div className="flex items-center justify-center bg-gradient-to-br z-40 animate-pulse from-blueDark to-blue rounded-l-1xl w-20">
+          <section className="flex w-9/12 max-w-screen-lg h-20 m-2 ">
+            <div className="flex items-center justify-center bg-gradient-to-br z-40 bg-greenL animate-pulse shadow-2xl rounded-l-4xl w-20">
               <h1 className="text-white font-bold">#{props.index}</h1>
             </div>
-            <span className="flex-col w-0.5 h-20 bg-white" />
-            <div className="flex items-center bg-gradient-to-br from-baseDark to-base rounded-r-1xl w-11/12">
+            <span className="flex-col w-0.5 h-20" />
+            <div className="flex items-center bg-gradient-to-br bg-white bg-opacity-25 border border-white border-opacity-50 rounded-r-1xl w-11/12">
               <div className="flex mr-4 ml-4 items-center justify-between h-12 w-full ">
                 <div className="flex items-center ">
                   <img
@@ -51,7 +51,7 @@ export default function UsersList(props: UsersData) {
                     alt=""
                   />
                   <div className="flex-col ml-2">
-                    <p className="font-bold text-lg text-white ">
+                    <p className="font-bold text-lg text-baseDark ">
                       {props.name || props.login}
                     </p>
                     <div className="flex ">
@@ -60,7 +60,7 @@ export default function UsersList(props: UsersData) {
                         alt="levelup"
                         width={12}
                       />
-                      <p className="font-semibold text text-base text-white ml-2">
+                      <p className="font-semibold text text-base text-baseDark ml-2">
                         level {props.level}
                       </p>
                     </div>
@@ -69,14 +69,14 @@ export default function UsersList(props: UsersData) {
 
                 <div className="flex w-5/12 justify-between">
                   <div className="">
-                    <p className="text-blue font-bold">
+                    <p className="text-baseDark font-bold">
                       {props.challangesHistory.length}
                     </p>
                   </div>
 
                   <div className="flex mr-6 ">
-                    <p className="text-white font-bold">{totalExperience}</p>
-                    <FireIcon width="16" fill="#0C85E0" />
+                    <p className="text-text-baseDark font-bold">{totalExperience}</p>
+                    <FireIcon width="16" fill="#18a09f" />
                   </div>
                 </div>
               </div>
@@ -84,12 +84,12 @@ export default function UsersList(props: UsersData) {
           </section>
         </>
       ) : (
-        <section className="flex w-9/12 max-w-screen-lg h-20 m-2 shadow-xl">
-          <div className="flex items-center justify-center bg-gradient-to-br from-baseDark to-base rounded-l-1xl w-20">
+        <section className="flex w-9/12 max-w-screen-lg h-20 m-2">
+          <div className="flex items-center justify-center bg-white bg-opacity-25 border border-white border-opacity-50 shadow-2xl rounded-l-4xl w-20">
             <h1 className="text-white font-bold">#{props.index}</h1>
           </div>
-          <span className="flex-col w-0.5 h-20 bg-white" />
-          <div className="flex items-center bg-gradient-to-br from-baseDark to-base rounded-r-1xl w-11/12">
+          <span className="flex-col w-0.5 h-20" />
+          <div className="flex items-center bg-white bg-opacity-25 border border-white border-opacity-50 shadow-2xl rounded-r-1xl w-11/12">
             <div className="flex mr-4 ml-4 items-center justify-between h-12 w-full ">
               <div className="flex items-center ">
                 <img
@@ -98,12 +98,12 @@ export default function UsersList(props: UsersData) {
                   alt=""
                 />
                 <div className="flex-col ml-2">
-                  <p className="font-bold text-lg text-white ">
+                  <p className="font-bold text-lg text-baseDark ">
                     {props.name || props.login}
                   </p>
                   <div className="flex ">
                     <img src="./icons/level-up.svg" alt="levelup" width={12} />
-                    <p className="font-semibold text text-base text-white ml-2">
+                    <p className="font-semibold text text-base text-baseDark ml-2">
                       level {props.level}
                     </p>
                   </div>
@@ -112,14 +112,14 @@ export default function UsersList(props: UsersData) {
 
               <div className="flex w-5/12 justify-between">
                 <div className="">
-                  <p className="text-blue font-bold">
+                  <p className="text-baseDark font-bold">
                     {props.challangesHistory.length}
                   </p>
                 </div>
 
                 <div className="flex mr-6">
-                  <p className="text-white font-bold">{totalExperience}</p>
-                  <FireIcon width="16" fill="#0C85E0" />
+                  <p className="text-baseDark font-bold">{totalExperience}</p>
+                  <FireIcon width="16" fill="#18a09f" />
                 </div>
               </div>
             </div>

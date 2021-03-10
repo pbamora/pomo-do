@@ -12,21 +12,23 @@ export default function ChallangesHistory() {
 
   return (
     <>
-      <div className="flex-col absolute right-0 pl-5 pr-5 pt-1 w-96 h-screen bg-gradient-to-tl overflow-y-auto from-baseDark to-base shadow-2xl">
+      <div className="flex-col absolute right-0 pl-5 pr-5 pt-1 w-96 h-screen rounded-tl-4xl rounded-bl-4xl bg-gradient-to-tl overflow-y-auto bg-white bg-opacity-40 shadow-2xl">
         {challangesHistory && (
           <div className="flex w-full justify-evenly items-center p-3">
-            <p className="flex font-semibold text-white">
+            <p className="flex font-semibold text-baseDark">
               Total: {challangesHistory ? challangesHistory.length : 0}
             </p>
 
-            <p className="flex font-semibold text-white">
-              Exp: {totalExp} <FireIcon width="16" fill="#0C85E0" />
+            <p className="flex font-semibold text-baseDark">
+              Exp: {totalExp} <FireIcon width="16" fill="#18a09f" />
             </p>
           </div>
         )}
 
         <div className="flex items-center justify-center p-5">
-          <p className="text-white font-bold">Últimos desafios completados:</p>
+          <p className="text-baseDark font-bold">
+            Últimos desafios completados:
+          </p>
         </div>
 
         <div>
@@ -38,7 +40,7 @@ export default function ChallangesHistory() {
             challangesHistory.map((challange) => (
               <div
                 key={challange.id}
-                className="flex-col items-center mt-5 rounded-1xl justify-center shadow-xl w-full bg-gradient-to-tl from-baseDark to-base "
+                className="flex-col items-center mt-5 rounded-1xl justify-center shadow-2xl w-full bg-white "
               >
                 <div className="flex justify-evenly items-center p-3">
                   <img
@@ -46,7 +48,7 @@ export default function ChallangesHistory() {
                     alt="check icon"
                     width={30}
                   />
-                  <strong className="flex text-xl text-white font-bold">
+                  <strong className="flex text-xl text-baseDark font-bold">
                     Exercício completado!
                   </strong>
                 </div>
@@ -63,22 +65,22 @@ export default function ChallangesHistory() {
                     width={80}
                   />
                   <div className="flex-col ">
-                    <p className=" text-white font-semibold text-center truncate">
+                    <p className=" text-baseDark font-semibold text-center truncate">
                       {challange.date}
                     </p>
                     <div className="flex justify-evenly">
-                      <p className=" flex text-white text-center">
+                      <p className=" flex text-baseDark text-center">
                         {challange.amount}{" "}
-                        <FireIcon width="16" fill="#0C85E0" />
+                        <FireIcon width="16" fill="#18a09f" />
                       </p>
-                      <p className="text-white font-semibold text-center">
+                      <p className="text-baseDark font-semibold text-center">
                         Tipo: {challange.type}
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <p className=" p-3 text-white text-center font-semibold truncate ">
+                <p className=" p-3 text-baseDark text-center font-semibold truncate ">
                   {challange.description}
                 </p>
               </div>

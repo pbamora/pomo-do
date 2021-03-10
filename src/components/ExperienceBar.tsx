@@ -15,22 +15,22 @@ export default function ExperienceBar() {
 
   return (
     <>
-      <header className="flex w-9/12 max-w-screen-lg items-center shadow-2xl">
+      <header className="flex w-9/12 max-w-screen-lg items-center rounded-4xl bg-white bg-opacity-10 shadow-2xl">
         <div className="flex justify-center p-3 items-center">
-          <span className="font-black ml-2 text-white"></span>
-          <FireIcon width="15" fill="#0C85E0" />
+          <span className="font-black ml-2 text-white">0</span>
+          <FireIcon width="15" fill="#18a09f" />
         </div>
-        <div className="flex-1 h-1 rounded-1xl bg-gray m-1 relative ">
+        <div className="flex-1 h-1 rounded-1xl bg-white m-1 relative ">
           <span
             style={{ width: `${percentToNextLevel}%` }}
-            className={`h-1 rounded-5xl bg-blue absolute`}
+            className={`h-1 rounded-5xl bg-greenL absolute`}
           ></span>
         </div>
         <div className="flex justify-center p-3 items-center">
           <span className="font-black ml-2 text-white">
             {totalExperience}
           </span>
-          <FireIcon width="15" fill="#0C85E0" />
+          <FireIcon width="15" fill="#18a09f" />
         </div>
       </header>
     </>

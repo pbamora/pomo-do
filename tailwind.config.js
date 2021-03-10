@@ -1,6 +1,9 @@
 module.exports = {
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
+  purge: [
+    "./src/pages/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     darkMode: "media",
     screens: {
@@ -11,6 +14,9 @@ module.exports = {
     },
     colors: {
       gray: "#DCDDE0",
+      text: "#303656",
+      greenR: "#2086a5",
+      greenL: "#18a09f",
       base: "#284154",
       baseDark: "#20323F",
       white: "#fff",
@@ -23,12 +29,24 @@ module.exports = {
       blue: "#0C85E0",
       blueDark: "#2073B1",
     },
-    blur: {
-      "10xl": "9000px",
-    },
     fontFamily: {
       sans: ["Nunito", "sans-serif"],
       serif: ["Merriweather", "serif"],
+    },
+    boxShadow: {
+      sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      DEFAULT:
+        "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+      md:
+        "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+      lg:
+        "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      xl:
+        "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      "2xl": "0 35px 60px -15px rgba(24, 160, 159, 0.3)",
+      "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+      inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
+      none: "none",
     },
     extend: {
       spacing: {
@@ -50,7 +68,6 @@ module.exports = {
     },
   },
   variants: {
-    animation: ["responsive", "motion-safe", "motion-reduce"],
     plugins: {
       tailwindcss: {
         config: ["./tailwindcss-config.js"],

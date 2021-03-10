@@ -59,7 +59,7 @@ export function ChallengesProvider({
     const config = { headers: { "Content-Type": "application/json" } };
 
     axios.put(
-      "/api/user",
+      `/api/user`,
       {
         id,
         level,

@@ -2,6 +2,7 @@ import SideBar from "../components/SiderBar";
 import UsersList from "../components/UsersList";
 import { useRouter } from "next/dist/client/router";
 import axios from "axios";
+import { useEffect } from "react";
 
 interface Challange {
   type: string;
@@ -42,10 +43,6 @@ interface UsersProps {
 }
 
 export default function LeaderBorder(props: UsersProps) {
-  const router = useRouter();
-
-  console.log(props);
-
   return (
     <>
       <div className="flex">
@@ -90,11 +87,9 @@ export default function LeaderBorder(props: UsersProps) {
 }
 
 export const getServerSideProps = async (ctx) => {
-
   const users = await axios.get(
-    `${process.env.BASE_URL}/api/user/users`
+    `${process.env.BASE_URL ? process.env.BASE_URL : ""}/api/user/users`
   );
-
 
   return {
     props: {
