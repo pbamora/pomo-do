@@ -20,9 +20,9 @@ export default function SideBar() {
 
         <button
           onClick={(): void => navigateToHome()}
-          className={` mt-52 h-16 w-full fill-current bg-white bg-opacity-40   ${
+          className={` mt-52 h-16 w-full fill-current ${
             selected === "Home" &&
-            "border-greenL rounded-tl-1xl rounded-bl-1xl shadow-3xl border-l-4"
+            "border-greenL bg-white rounded-tl-1xl rounded-bl-1xl shadow-3xl border-l-4"
           } focus:outline-none flex items-center justify-center`}
         >
           <HomeIcon
@@ -34,7 +34,7 @@ export default function SideBar() {
           onClick={(): void => navigateToLeaderBoard()}
           className={` h-16 mb-3 w-full fill-current  ${
             selected === "Trophy" &&
-            "border-greenL rounded-tl-1xl rounded-bl-1xl shadow-3xl border-l-4"
+            "border-greenL bg-white rounded-tl-1xl rounded-bl-1xl shadow-3xl border-l-4"
           } focus:outline-none flex items-center justify-center`}
         >
           <Trophy

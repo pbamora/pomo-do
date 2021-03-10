@@ -2,8 +2,20 @@ import { useContext } from "react";
 import { ChallangesContext } from "../contexts/ChallangesContext";
 import { FireIcon } from "../../public/icons";
 
-export default function ChallangesHistory() {
-  const { challangesHistory } = useContext(ChallangesContext);
+interface ChallengeData {
+  id: string;
+  date: string;
+  type: string;
+  description: string;
+  amount: number;
+}
+
+interface Challanges {
+  challangesHistory: Array<ChallengeData>;
+}
+
+export default function ChallangesHistory(props: Challanges) {
+  const { challangesHistory } = props;
 
   const totalExp = challangesHistory.reduce(
     (acc, challange) => challange.amount + acc,

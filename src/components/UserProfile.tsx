@@ -4,8 +4,7 @@ import { ChallangesContext } from "../contexts/ChallangesContext";
 import { UserContext } from "../contexts/UserContext";
 
 export default function UserProfile() {
-  const { level } = useContext(ChallangesContext);
-  const { avatar_url, name, login, location } = useContext(UserContext);
+  const { avatar_url, login, location, level } = useContext(UserContext);
 
   return (
     <>
@@ -24,7 +23,7 @@ export default function UserProfile() {
               level {level}
             </p>
             <p className=" flex items-center font-medium text-base text-white mt-1 ml-3">
-             | {location}
+              | {location}
             </p>
           </div>
         </div>

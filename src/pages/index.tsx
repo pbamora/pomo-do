@@ -12,6 +12,7 @@ import { UserProvider } from "../contexts/UserContext";
 import { useRouter } from "next/dist/client/router";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 interface Challange {
   id: string;
@@ -33,34 +34,46 @@ export interface ChallangesData {
   challangesHistory: Array<Challange>;
 }
 
-interface ChallangeProps {
-  response: ChallangesData;
-}
-
-export default function Home(props: ChallangeProps) {
+export default function Home() {
   const [showSideBar, setShowSideBar] = useState(false);
+  const [user, setUser] = useState<ChallangesData>({} as ChallangesData);
   const router = useRouter();
 
-  useEffect(() => {
-    if (props) return;
+  const getUser = async (id: string) => {
+    const response = await axios.get(
+      `${process.env.BASE_URL ? process.env.BASE_URL : ""}/api/user/${Number(
+        id
+      )}`
+    );
 
-    router.push("/login");
-  }, []);
+    setUser(response.data);
+  };
+
+  useEffect(() => {
+    const id = Cookies.get("id");
+
+    if (!id) {
+      router.push("/login");
+    }
+
+    getUser(id);
+  });
 
   return (
     <>
       <UserProvider
-        id={props.response.id}
-        login={props.response.login}
-        location={props.response.location}
-        avatar_url={props.response.avatar_url}
-        name={props.response.name}
-        challangesHistory={props.response.challangesHistory}
+        id={user.id}
+        login={user.login}
+        location={user.location}
+        avatar_url={user.avatar_url}
+        name={user.name}
+        challangesHistory={user.challangesHistory}
+        level={user.level}
       >
         <ChallengesProvider
-          level={props.response.level}
-          currentExperience={props.response.currentExperience}
-          challangesHistory={props.response.challangesHistory}
+          level={user.level}
+          currentExperience={user.currentExperience}
+          challangesHistory={user.challangesHistory}
         >
           <CountDownProvider>
             <div className="flex">
@@ -94,7 +107,9 @@ export default function Home(props: ChallangeProps) {
                   <TurnRight width="32" fill="#fff" />
                 )}
               </button>
-              {showSideBar && <ChallangesHistory />}
+              {showSideBar && (
+                <ChallangesHistory challangesHistory={user.challangesHistory} />
+              )}
             </div>
           </CountDownProvider>
         </ChallengesProvider>
@@ -102,18 +117,3 @@ export default function Home(props: ChallangeProps) {
     </>
   );
 }
-
-export const getServerSideProps = async (ctx) => {
-  const { id } = ctx.req.cookies;
-
-  const response = await axios.get(
-    `${process.env.BASE_URL ? process.env.BASE_URL : ""}/api/user/${id}`
-  );
-
-  return {
-    props: {
-      id: id,
-      response: response.data,
-    },
-  };
-};

@@ -58,6 +58,8 @@ export function ChallengesProvider({
   useEffect(() => {
     const config = { headers: { "Content-Type": "application/json" } };
 
+    if (!challangesHistory || !currentExperience) return;
+
     axios.put(
       `/api/user`,
       {
@@ -84,7 +86,6 @@ export function ChallengesProvider({
   }
 
   const completedChallange = () => {
-
     const { amount } = activeChallange;
 
     let finalExperience = currentExperience + amount;
